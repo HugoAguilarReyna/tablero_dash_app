@@ -1,0 +1,76 @@
+/* Colores basados en motivus.com/es/ */
+body {
+    background-color: #1E1E1E; /* Nuevo color de fondo general del body */
+    color: #FFFFFF; /* Color de texto general blanco */
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo del control principal del Dropdown (lo que siempre se ve) */
+.Select-control {
+    background-color: #000000 !important; /* Fondo negro */
+    border: 1px solid #333333 !important; /* Borde oscuro */
+    color: #FFFFFF !important; /* Texto blanco */
+}
+
+/* Estilo del valor seleccionado dentro del control principal */
+.Select-single-value {
+    color: #FFFFFF !important; /* Texto blanco */
+}
+
+/* Estilo del texto de entrada cuando se escribe en el Dropdown */
+.Select-input {
+    color: #FFFFFF !important; /* Texto blanco */
+}
+
+/* Estilo del placeholder (ej. "Selecciona una opción...") */
+.Select-placeholder {
+    color: #BBBBBB !important; /* Gris más claro para el placeholder */
+}
+
+/* Estilo de la flecha del Dropdown */
+.Select-arrow {
+    border-color: #FFFFFF transparent transparent !important; /* Flecha blanca */
+}
+.Select-arrow-zone {
+    padding-right: 10px; /* Ajuste para la flecha */
+}
+
+/* Estilo del contenedor del menú desplegable (cuando se abre la lista de opciones) */
+.Select-menu-outer {
+    background-color: #000000 !important; /* Fondo negro para la lista de opciones */
+    border: 1px solid #333333 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Estilo de cada opción individual en la lista */
+.Select-option {
+    background-color: #000000 !important; /* Fondo negro para cada opción */
+    color: #FFFFFF !important; /* Texto blanco para cada opción */
+}
+
+/* Estilo de la opción al pasar el mouse (hover) o al estar enfocada */
+.Select-option.is-focused {
+    background-color: #333333 !important; /* Gris oscuro para el resaltado */
+    color: #FFFFFF !important; /* Texto blanco */
+}
+
+/* Estilo de la opción que ha sido seleccionada en la lista */
+.Select-option.is-selected {
+    background-color: #555555 !important; /* Gris un poco diferente para el seleccionado */
+    color: #FFFFFF !important; /* Texto blanco */
+}
+
+/* Estilos para el modo multi-select (los "chips" de opciones seleccionadas) */
+.Select-multi-value-wrapper .Select-value {
+    background-color: #555555 !important; /* Fondo del "chip" seleccionado */
+    color: #FFFFFF !important; /* Texto del "chip" seleccionado */
+    border-radius: 4px;
+    padding: 3px 7px;
+    margin: 2px;
+}
+.Select-multi-value-wrapper .Select-value-label {
+    color: #FFFFFF !important; /* Texto del "chip" */
+}
+.Select-multi-value-wrapper .Select-value-icon {
+    color: #FFFFFF !important; /* Icono de cierre del "chip" */
+}
