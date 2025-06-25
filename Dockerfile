@@ -1,33 +1,23 @@
-# Usar una imagen base de Python estable y compatible
-FROM python:3.9-slim-buster
+# Usar una imagen base de Miniconda
+# Esta imagen ya tiene Python, Conda y muchas dependencias científicas preinstaladas o fáciles de instalar
+FROM continuumio/miniconda3
 
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Instalar dependencias del sistema necesarias para algunas librerías
-# Esto es crucial para pandas, numpy, scipy, matplotlib, prophet
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    build-essential \
-    gcc \
-    gfortran \
-    libblas-dev \
-    liblapack-dev \
-    pkg-config \
-    libhdf5-dev \
-    libffi-dev \
-    libssl-dev \
-    python3-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Copiar el archivo environment.yml que creamos antes
+# Si lo borraste en pasos anteriores, tendrás que recrearlo o usar solo requirements.txt con conda install
+# Para simplificar, vamos a usar directamente pip install para las dependencias.
+# NO necesitas environment.yml si solo usas pip install
+# Vamos a pegar tu requirements.txt directamente
 
 # Copiar el archivo requirements.txt al directorio de trabajo
 COPY requirements.txt .
 
-# Instalar las dependencias de Python
-# Instala gunicorn primero para asegurar que está disponible como entrada en el PATH
-# Nota: Usamos --default-timeout para descargas grandes si la red es lenta
-RUN pip install gunicorn && \
-    pip install --no-cache-dir --default-timeout=1000 -r requirements.txt
+# Instalar las dependencias de Python usando pip (dentro del entorno conda)
+# Conda viene con pip, y pip puede instalar los paquetes que Conda no tiene directamente.
+# Esto es generalmente más robusto que compilar desde cero.
+RUN pip install --no-cache-dir --default-timeout=1000 -r requirements.txt
 
 # Copiar el resto de tu aplicación
 COPY . .
