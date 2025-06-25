@@ -13,6 +13,11 @@ RUN apt-get update && \
     gfortran \
     libblas-dev \
     liblapack-dev \
+    pkg-config \
+    libhdf5-dev \
+    libffi-dev \
+    libssl-dev \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copiar el archivo requirements.txt al directorio de trabajo
@@ -20,8 +25,9 @@ COPY requirements.txt .
 
 # Instalar las dependencias de Python
 # Instala gunicorn primero para asegurar que está disponible como entrada en el PATH
+# Nota: Usamos --default-timeout para descargas grandes si la red es lenta
 RUN pip install gunicorn && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir --default-timeout=1000 -r requirements.txt
 
 # Copiar el resto de tu aplicación
 COPY . .
