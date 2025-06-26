@@ -1,23 +1,24 @@
 # Usar una imagen base de Miniconda
-# Esta imagen ya tiene Python, Conda y muchas dependencias científicas preinstaladas o fáciles de instalar
 FROM continuumio/miniconda3
 
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar el archivo environment.yml que creamos antes
-# Si lo borraste en pasos anteriores, tendrás que recrearlo o usar solo requirements.txt con conda install
-# Para simplificar, vamos a usar directamente pip install para las dependencias.
-# NO necesitas environment.yml si solo usas pip install
-# Vamos a pegar tu requirements.txt directamente
-
-# Copiar el archivo requirements.txt al directorio de trabajo
-COPY requirements.txt .
-
-# Instalar las dependencias de Python usando pip (dentro del entorno conda)
-# Conda viene con pip, y pip puede instalar los paquetes que Conda no tiene directamente.
-# Esto es generalmente más robusto que compilar desde cero.
-RUN pip install --no-cache-dir --default-timeout=1000 -r requirements.txt
+# Instalar las dependencias críticas (pandas y prophet) con conda
+# Esto usa los binarios precompilados de conda-forge, evitando problemas de compilación
+RUN conda install -y \
+    pandas=2.0.3 \
+    prophet=1.1.1 \
+    numpy=1.26.4 \
+    plotly=5.22.0 \
+    dash=2.17.0 \
+    requests=2.31.0 \
+    openpyxl=3.1.2 \
+    gunicorn=22.0.0 \
+    matplotlib=3.8.4 \
+    lxml=5.4.0 \
+    -c conda-forge && \
+    conda clean --all -f -y
 
 # Copiar el resto de tu aplicación
 COPY . .
